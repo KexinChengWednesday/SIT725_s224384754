@@ -16,5 +16,4 @@ Each folder corresponds to an individual practical task.
 - **Trimester:** T3, 2025
 
 ## Notes
-- Repository is public so markers can clone it.
 - Each task sits in its own folder (e.g., `/1.3P/`).
