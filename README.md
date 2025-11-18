@@ -7,6 +7,7 @@ Each folder corresponds to an individual practical task.
 | Folder | Description |
 |-------|-------------|
 | **1.3P** | Basic programming and Git – HTML/CSS/JS demo with user interaction. |
+| **2.2P** | Rest Api and Express |
 | *(More coming)* | Future tasks will be added during the trimester. |
 
 ## 🧠 Student Information
