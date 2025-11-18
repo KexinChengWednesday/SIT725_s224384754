@@ -1,0 +1,14 @@
+body {
+    background-color: blanchedalmond;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-align: center;
+    color:brown;
+}
+h1 {
+    font-size: xx-large;
+}
+button{
+    background-color: azure;
+    border: none;
+    border-radius: 5px;
+}
