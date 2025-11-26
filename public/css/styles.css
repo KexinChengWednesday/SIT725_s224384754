@@ -1,0 +1,68 @@
+.navbar-size {
+  margin: 0 auto;
+  width: 94%;
+}
+
+nav {
+  background-color: #2feee1;
+}
+
+.main-body {
+  padding-bottom: 38px;
+  min-height: calc(100vh - 64px);
+  background-color: #82dce0;
+  font-family: 'Courier New', Courier, monospace;
+  color: #fcf7f7;
+}
+
+.main-img,
+.materialboxed-image,
+.main-image {
+  margin: 28px auto;
+  height: 340px;
+  object-position: center;
+  border-radius: 4px;
+}
+
+.open-btn,
+#openFormButton {
+  margin-top: 42px;
+  border-radius: 9px;
+  background-color: #a6c8ef;
+}
+
+.card-img img,
+.act {
+  width: 100%;
+  height: 245px;
+}
+
+.cardcontent {
+  padding: 12px;
+}
+
+.cardcontent .card-title {
+  font-size: 1.22rem;
+  color: #e15858;
+}
+
+.reveal {
+  padding: 12px;
+}
+.cardcontent p {
+    color: #252525;
+}
+.card {
+
+  border-radius: 25px;
+  box-shadow: 0 5px 14px rgba(253, 206, 206, 0.18);
+}
+.toggle-info {
+  color: #4a90e2;
+}
+
+.card-action a {
+  color: #8abff7;
+  letter-spacing: .8px;
+  font-weight: 700;
+}
