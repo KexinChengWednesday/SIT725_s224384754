@@ -9,6 +9,7 @@ Each folder corresponds to an individual practical task.
 | **1.3P** | Basic programming and Git – HTML/CSS/JS demo with user interaction. |
 | **2.2P** | Rest Api and Express |
 | **3.2P** | Bootstrapping Express App|
+| **4.2P** | Connect to MongoDB|
 | *(More coming)* | Future tasks will be added during the trimester. |
 
 ## 🧠 Student Information
