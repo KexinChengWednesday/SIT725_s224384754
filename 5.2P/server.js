@@ -18,7 +18,6 @@ app.use(express.urlencoded({ extended: false }));
 
 
 const booksRoutes = require('./routes/books.routes');
-// => routes/books.routes.js 中导出的 router
 app.use('/api/books', booksRoutes);
 
 
@@ -32,3 +31,4 @@ console.log('[BOOT] about to listen');
 app.listen(PORT, () => {
   console.log(`Server is running at http://localhost:${PORT}`);
 });
+
