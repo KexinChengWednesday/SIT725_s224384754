@@ -21,7 +21,7 @@
     }
 
     #booksContainer {
-      max-width: 850px;
+      max-width: 900px;
       margin: 0 auto 40px auto;
       background: rgba(255, 255, 255, 0.7);
       padding: 20px 24px;
@@ -37,7 +37,7 @@
     }
 
     #booksContainer li {
-      padding: 12px 16px;
+      padding: 14px 18px;
       margin-bottom: 12px;
       border-radius: 12px;
       display: flex;
@@ -73,9 +73,15 @@
       background: linear-gradient(90deg, #cde7ff, #ffc2e2);
     }
 
+    .book-header {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 8px;
+    }
+
     .book-title {
       font-weight: bold;
-      margin-right: 10px;
       font-size: 16px;
     }
 
@@ -87,6 +93,13 @@
     .book-meta {
       font-size: 13px;
       color: #7f5870;
+    }
+
+    .book-summary {
+      margin-top: 4px;
+      font-size: 13px;
+      line-height: 1.4;
+      color: #5c3b4a;
     }
   </style>
 </head>
@@ -109,21 +122,34 @@
       books.forEach((book) => {
         const li = document.createElement('li');
 
+        const headerDiv = document.createElement('div');
+        headerDiv.className = 'book-header';
+
         const titleSpan = document.createElement('span');
         titleSpan.className = 'book-title';
         titleSpan.textContent = book.title;
 
         const authorSpan = document.createElement('span');
         authorSpan.className = 'book-author';
-        authorSpan.textContent = book.author;
+        authorSpan.textContent = 'by ' + book.author;
+
+        headerDiv.appendChild(titleSpan);
+        headerDiv.appendChild(authorSpan);
 
         const metaSpan = document.createElement('span');
         metaSpan.className = 'book-meta';
-        metaSpan.textContent = book.year + ' · ' + book.genre;
+        metaSpan.textContent =
+          'ID: ' + book.id +
+          '  ·  Year: ' + book.year +
+          '  ·  Genre: ' + book.genre;
 
-        li.appendChild(titleSpan);
-        li.appendChild(authorSpan);
+        const summaryP = document.createElement('p');
+        summaryP.className = 'book-summary';
+        summaryP.textContent = book.summary;
+
+        li.appendChild(headerDiv);
         li.appendChild(metaSpan);
+        li.appendChild(summaryP);
 
         list.appendChild(li);
       });
