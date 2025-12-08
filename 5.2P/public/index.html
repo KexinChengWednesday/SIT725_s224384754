@@ -41,8 +41,9 @@
       margin-bottom: 12px;
       border-radius: 12px;
       display: flex;
-      justify-content: space-between;
-      align-items: center;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 4px;
       font-size: 15px;
       color: #4a2b3c;
       box-shadow: 0 3px 6px rgba(0, 0, 0, 0.08);
@@ -82,6 +83,11 @@
       color: #6a3f5f;
       font-size: 14px;
     }
+
+    .book-meta {
+      font-size: 13px;
+      color: #7f5870;
+    }
   </style>
 </head>
 <body>
@@ -111,8 +117,13 @@
         authorSpan.className = 'book-author';
         authorSpan.textContent = book.author;
 
+        const metaSpan = document.createElement('span');
+        metaSpan.className = 'book-meta';
+        metaSpan.textContent = book.year + ' · ' + book.genre;
+
         li.appendChild(titleSpan);
         li.appendChild(authorSpan);
+        li.appendChild(metaSpan);
 
         list.appendChild(li);
       });
