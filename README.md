@@ -10,7 +10,8 @@ Each folder corresponds to an individual practical task.
 | **2.2P** | Rest Api and Express |
 | **3.2P** | Bootstrapping Express App|
 | **4.2P** | Connect to MongoDB|
-| **5.2P** |Books Catalog with MVC|
+| **5.2P** |Books Catalogue with MVC|
+| **5.3C** |Add Database to Books Catalogue|
 | *(More coming)* | Future tasks will be added during the trimester. |
 
 ## 🧠 Student Information
