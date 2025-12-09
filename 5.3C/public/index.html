@@ -1,0 +1,252 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>GET ALL BOOKS</title>
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: #ffe4f0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page {
+      width: 90%;
+      max-width: 900px;
+      background: rgba(255, 255, 255, 0.9);
+      border-radius: 22px;
+      padding: 24px 28px 32px;
+      box-shadow: 0 14px 26px rgba(255, 140, 175, 0.35);
+    }
+
+    h1 {
+      text-align: center;
+      margin-bottom: 8px;
+      font-size: 26px;
+      color: #ff4f8b;
+      letter-spacing: 1px;
+    }
+
+    .subtitle {
+      text-align: center;
+      font-size: 14px;
+      color: #ff7eaa;
+      margin-bottom: 16px;
+    }
+
+    .hint {
+      text-align: left;
+      font-size: 14px;
+      color: #555;
+      margin-bottom: 12px;
+    }
+
+    .btn-row {
+      margin-bottom: 16px;
+    }
+
+    #loadBtn {
+      padding: 8px 18px;
+      border-radius: 8px;
+      border: none;
+      background: #ff7bb4;
+      color: #fff;
+      font-size: 14px;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 123, 180, 0.5);
+    }
+
+    #loadBtn:hover {
+      filter: brightness(1.05);
+    }
+
+    .layout {
+      display: flex;
+      gap: 18px;
+    }
+
+    .panel {
+      flex: 1;
+      background: #ffeef6;
+      border-radius: 14px;
+      padding: 12px 14px;
+      border: 1px solid #ffd0e5;
+      min-height: 180px;
+      font-size: 14px;
+      color: #5a3552;
+    }
+
+    .panel-title {
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: #ff6aa9;
+    }
+
+    #listBox ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    #listBox li {
+      padding: 4px 2px;
+      cursor: pointer;
+    }
+
+    #listBox li:hover {
+      background: rgba(255, 192, 218, 0.6);
+    }
+
+    #listBox li.active {
+      background: rgba(255, 170, 210, 0.9);
+    }
+
+    #detailBox p + p {
+      margin-top: 4px;
+    }
+
+    .summary {
+      margin-top: 6px;
+      line-height: 1.3;
+    }
+
+    @media (max-width: 720px) {
+      .layout {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="page">
+    <h1>Books Catalogue developed by s224384754</h1>
+    <p class="hint">Click the button below to get all books from the server.</p>
+
+    <div class="btn-row">
+      <button id="loadBtn">Get all books</button>
+    </div>
+
+    <div class="layout">
+      <div class="panel" id="listBox">
+        <div class="panel-title">All books</div>
+        <p>Click “Get all books” to load the list.</p>
+      </div>
+
+      <div class="panel" id="detailBox">
+        <div class="panel-title">Book details</div>
+        <p>...</p>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    function getPrice(price) {
+    if (!price) return '';
+    if (typeof price === 'object' && price.$numberDecimal) {
+      return price.$numberDecimal;
+    }
+    return price.toString();
+  }
+    async function loadAllBooks() {
+      const listBox = document.getElementById('listBox');
+      const detailBox = document.getElementById('detailBox');
+
+      listBox.innerHTML = '<div class="panel-title">All books</div><p>Loading...</p>';
+      detailBox.innerHTML = '<div class="panel-title">Book details</div><p>...</p>';
+
+      try {
+        const res = await fetch('/api/books');
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
+
+        const body = await res.json();
+        const books = Array.isArray(body.data) ? body.data : [];
+
+        if (books.length === 0) {
+          listBox.innerHTML = '<div class="panel-title">All books</div><p>No books found.</p>';
+          return;
+        }
+
+        const titleDiv = document.createElement('div');
+        titleDiv.className = 'panel-title';
+        titleDiv.textContent = 'All books';
+
+        const ul = document.createElement('ul');
+
+        books.forEach(function (book) {
+          const li = document.createElement('li');
+          li.textContent = book.title + ' ' + getPrice(book.price) + ' AUD';
+
+          li.dataset.id = book.id;
+
+          li.addEventListener('click', function () {
+            document.querySelectorAll('#listBox li').forEach(function (item) {
+              item.classList.remove('active');
+            });
+            li.classList.add('active');
+            loadBookDetail(book.id);
+          });
+
+          ul.appendChild(li);
+        });
+
+        listBox.innerHTML = '';
+        listBox.appendChild(titleDiv);
+        listBox.appendChild(ul);
+      } catch (err) {
+        console.error(err);
+        listBox.innerHTML = '<div class="panel-title">All books (title + price)</div><p>Failed to load books.</p>';
+      }
+    }
+
+    async function loadBookDetail(id) {
+      const detailBox = document.getElementById('detailBox');
+      detailBox.innerHTML = '<div class="panel-title">Book details</div><p>Loading...</p>';
+
+      try {
+        const res = await fetch('/api/books/' + encodeURIComponent(id));
+        if (!res.ok) {
+          throw new Error('HTTP ' + res.status);
+        }
+
+        const body = await res.json();
+        const book = body.data;
+
+        if (!book) {
+          detailBox.innerHTML = '<div class="panel-title">Book details</div><p>Book not found.</p>';
+          return;
+        }
+
+        const html =
+          '<div class="panel-title">Book details</div>' +
+          '<p><strong>Title:</strong> ' + book.title + '</p>' +
+          '<p><strong>Author:</strong> ' + book.author + '</p>' +
+          '<p><strong>Year:</strong> ' + book.year + '</p>' +
+          '<p><strong>Genre:</strong> ' + book.genre + '</p>' +
+          '<p class="summary"><strong>Summary:</strong> ' + book.summary + '</p>' +
+          '<p><strong>Price (AUD):</strong> ' + getPrice(book.price) + '</p>';
+
+
+        detailBox.innerHTML = html;
+      } catch (err) {
+        console.error(err);
+        detailBox.innerHTML = '<div class="panel-title">Book details</div><p>Failed to load book details.</p>';
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+      const btn = document.getElementById('loadBtn');
+      btn.addEventListener('click', loadAllBooks);
+    });
+  </script>
+</body>
+</html>
