@@ -1,6 +1,4 @@
 const booksService = require('../services/books.service');
-
-// GET /api/books
 function getAllBooks(req, res, next) {
   try {
     const items = booksService.getAllBooks();
@@ -14,7 +12,6 @@ function getAllBooks(req, res, next) {
   }
 }
 
-// GET /api/books/:id
 function getBookById(req, res, next) {
   try {
     const id = req.params.id;
@@ -41,3 +38,4 @@ module.exports = {
   getAllBooks,
   getBookById
 };
+
