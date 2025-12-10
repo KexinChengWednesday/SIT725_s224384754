@@ -10,7 +10,7 @@ async function seed() {
     console.log(' Connected to', MONGO_URI);
 
     await Book.deleteMany({});
-
+//same as ...
     const sampleBooks = [
       {
         id: 'b1',
@@ -63,11 +63,13 @@ async function seed() {
         price: '19.25',
       },
     ];
+    //price0-200dontchange
 
     const docs = sampleBooks.map((b) => ({
       ...b,
       price: mongoose.Types.Decimal128.fromString(b.price),
     }));
+    //needtoadderr.name === 'BSONErrordontforget
 
     await Book.insertMany(docs);
 
