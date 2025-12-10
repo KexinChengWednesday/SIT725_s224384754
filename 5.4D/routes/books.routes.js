@@ -1,12 +1,25 @@
 const express = require('express');
-const router = express.Router();
+const booksRouter = express.Router();
 
-const booksController = require('../controllers/books.controller');
+const {
+  getAllBooks,
+  getBookById,
+  createBook,
+  updateBook,
+  deleteBook,
+} = require('../controllers/books.controller');
 
-router.get('/api/books', booksController.getAllBooks);
-router.get('/api/books/:id', booksController.getBookById);
-router.post('/api/books', booksController.createBook);
-router.put('/api/books/:id', booksController.updateBook);
-router.delete('/api/books/:id', booksController.deleteBook);
 
-module.exports = router;
+const routes = [
+  { method: 'get', path: '/api/books', handler: getAllBooks },
+  { method: 'get', path: '/api/books/:id', handler: getBookById },
+  { method: 'post', path: '/api/books', handler: createBook },
+  { method: 'put', path: '/api/books/:id', handler: updateBook },
+  { method: 'delete', path: '/api/books/:id', handler: deleteBook },
+];
+
+routes.forEach((r) => {
+  booksRouter[r.method](r.path, r.handler);
+});
+
+module.exports = booksRouter;
