@@ -13,6 +13,7 @@ Each folder corresponds to an individual practical task.
 | **5.2P** |Books Catalogue with MVC|
 | **5.3C** |Add Database to Books Catalogue|
 | **5.4D** |APPLY ETHICAL SOFTWARE PRINCIPLES MVC DATABASE  |
+| **6.2C** |Testing using mocha+chai  |
 | *(More coming)* | Future tasks will be added during the trimester. |
 
 ## 🧠 Student Information
