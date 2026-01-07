@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Temperature Monitor</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f6f8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+
+    .card {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 12px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+      text-align: center;
+      width: 320px;
+    }
+
+    h1 {
+      margin-top: 0;
+      font-size: 20px;
+      color: #333;
+    }
+
+    .temperature {
+      font-size: 48px;
+      font-weight: bold;
+      margin: 20px 0;
+    }
+
+    .status {
+      font-size: 16px;
+      margin-top: 10px;
+      color: #666;
+    }
+
+    .cold {
+      color: #2196f3;
+    }
+
+    .normal {
+      color: #4caf50;
+    }
+
+    .hot {
+      color: #f44336;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="card">
+    <h1>Temperature Monitor</h1>
+
+    <div id="temp" class="temperature">
+      -- °C
+    </div>
+
+    <div id="status" class="status">
+      Waiting for sensor data...
+    </div>
+  </div>
+
+
+  <script src="/socket.io/socket.io.js"></script>
+
+  <script>
+  
+    const socket = io();
+
+ 
+    socket.on('temperatureUpdate', (data) => {
+      const tempEl = document.getElementById('temp');
+      const statusEl = document.getElementById('status');
+
+    
+      tempEl.innerText = data.temperature + ' ' + data.unit;
+
+
+      tempEl.className = 'temperature';
+
+      let statusText = 'Normal';
+      let cssClass = 'normal';
+
+      if (data.temperature < 18) {
+        statusText = 'Cold';
+        cssClass = 'cold';
+      } else if (data.temperature > 26) {
+        statusText = 'Hot';
+        cssClass = 'hot';
+      }
+
+      // colour based on temperature range
+      tempEl.classList.add(cssClass);
+
+      // status text
+      statusEl.innerText =
+        statusText + ' (Updated at ' + data.timestamp + ')';
+    });
+  </script>
+
+</body>
+</html>
